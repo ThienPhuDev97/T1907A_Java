@@ -1,0 +1,64 @@
+CREATE TABLE person(
+    ID_person VARCHAR(100) PRIMARY KEY NOT NULL,
+    FullName VARCHAR(100) NOT NULL,
+    Birthday VARCHAR(20) NOT NULL,
+    Gender VARCHAR(10) NOT NULL,
+    Address VARCHAR(100) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    identity_card INT NOT NULL
+)
+CREATE TABLE users(
+    ID_user VARCHAR(100) PRIMARY KEY NOT NULL,
+    Username VARCHAR(100) NOT NULL,
+    PASSWORD VARCHAR(100) NOT NULL,
+    ID_person VARCHAR(100) NOT NULL,
+    Role VARCHAR(20) NOT NULL,
+    FOREIGN KEY(ID_person) REFERENCES person(ID_person)
+)
+CREATE TABLE category(
+    ID_category VARCHAR(100) PRIMARY KEY NOT NULL,
+    name_category VARCHAR(100) NOT NULL,
+    ID_user VARCHAR(100) NOT NULL,
+    FOREIGN KEY(ID_user) REFERENCES users(ID_user)
+)
+
+CREATE TABLE product(
+    ID_product VARCHAR(100) PRIMARY KEY NOT NULL,
+    ID_category VARCHAR(100) NOT NULL,
+    name_product VARCHAR(100) NOT NULL,
+    quantity INT NOT NULL,
+    price INT NOT NULL,
+    date_manufacture VARCHAR(20) NOT NULL,
+    expiry_date VARCHAR(20) NOT NULL,
+    FOREIGN KEY(ID_category) REFERENCES category(ID_category)
+)
+CREATE TABLE customer
+(
+    ID_customer varchar(100) PRIMARY KEY NOT null,
+    nameCustomer varchar(100) not null,
+    gender varchar(20) not null,
+    address varchar(100) not null,
+    phone varchar(20) NOT null,
+    identity_card int not null,
+    ID_user VARCHAR(100)  NOT NULL,
+    FOREIGN KEY (ID_user) REFERENCES users(ID_user)
+    )
+
+CREATE TABLE orders(
+    ID_order VARCHAR(100) PRIMARY KEY NOT NULL,
+    ID_customer VARCHAR(100) NOT NULL,
+    ID_user VARCHAR(100) NOT NULL,
+    date_Order VARCHAR(20) NOT NULL,
+    FOREIGN KEY(ID_customer) REFERENCES customer(ID_customer),
+    FOREIGN KEY(ID_user) REFERENCES users(ID_user)
+)
+CREATE TABLE OrderDetail(
+    ID_orderDetail INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    ID_order VARCHAR(100) NOT NULL,
+    ID_product VARCHAR(100) NOT NULL,
+    Price INT NOT NULL,
+    Quantity INT NOT NULL,
+    TotalMoney INT NOT NULL,
+    FOREIGN KEY(ID_order) REFERENCES orders(ID_order),
+    FOREIGN KEY(ID_product) REFERENCES product(ID_product)
+)
