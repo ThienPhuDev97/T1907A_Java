@@ -49,6 +49,7 @@ CREATE TABLE orders(
     ID_customer VARCHAR(100) NOT NULL,
     ID_user VARCHAR(100) NOT NULL,
     date_Order VARCHAR(20) NOT NULL,
+    TotalMoney int not null,
     FOREIGN KEY(ID_customer) REFERENCES customer(ID_customer),
     FOREIGN KEY(ID_user) REFERENCES users(ID_user)
 )
